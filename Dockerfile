@@ -1,17 +1,14 @@
-FROM python:3.14
-
-# Set working directory
+FROM dhi.io/python:3.14-dev AS builder
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 WORKDIR /app
-
-# Copy requirements and install
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt --target /app
 
-# Copy application code
-COPY . .
-
-# Expose the port
+FROM dhi.io/python:3.14 AS runtime
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+COPY --from=builder /app /app
+COPY . /app
 EXPOSE 5000
-
-# Run the app
-CMD ["python", "app.py"]
+CMD ["python", "/app/app.py"]
