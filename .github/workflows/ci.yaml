@@ -76,7 +76,7 @@ jobs:
         with:
           command: compare
           image: local://dinner:pr-${{ github.event.number }}
-          to: local://dinnerd:main
+          to: local://dinner:main
           write-comment: true
           github-token: ${{ secrets.GITHUB_TOKEN }}
           organization: ${{ vars.DOCKER_HUB_ORG }}
