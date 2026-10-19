@@ -1,4 +1,4 @@
-FROM python:3.14
+FROM dhi.io/python:3.14
 
 # Set working directory
 WORKDIR /app
